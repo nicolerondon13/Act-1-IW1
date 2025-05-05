@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-700 text-white p-4">
+    <!--NavBar-->
+    <nav class="bg-gray-200 text-black p-4" >
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Directorio</h1>
+            <div class="space-x-4">
+                <a href="home.html" class="hover:text-blue-300">Inicio</a>
+                <a href="search.html" class="hover:text-blue-300">Buscar</a>
+                <a href="new-restaurant.html" class="hover:text-blue-300">Nuevo restaurante</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto p-4">
+        <h2 class="text-3xl font-bold text-center mb-6">Buscar Restaurantes</h2>
+        <div class="flex justify-center mt-4">
+            <input type="text" id="searchInput" placeholder="Buscar por nombre"
+                class="w-[400px] p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 text-black bg-gray-200">
+        </div>       
+    </div>
+    <div id="results" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+    <script>
+        const restaurants = [
+            {name: "Sushi sensei", description:"El mejor restaurante de Sushi, que crea una fusión de la comida japonesa con la colombiana.", address: "Diagonal 22 con transversal 98 sur", image:"https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=800&q=80"},
+            
+            { name: "Por el monte", description:"Un lugar lleno de sabores increibles, que permiten vivir la experiencia de un asado.", address: "Carrera 43 # 8", image:"https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"},
+
+            { name: "Pizzas Don Julio", description:"Un restaurante que sigue con las tradiciones familiares, por medio de recetas que se transmiten con el paso de las generaciones.", address: "Avenida sur #45 - 3", image:"https://images.unsplash.com/photo-1571757392712-7c1052de7ce5?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"}
+        ];
+
+        const searchInput = document.getElementById('searchInput');
+        const resultsContainer = document.getElementById('results');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            resultsContainer.innerHTML = '';
+
+            restaurants
+            .filter(restaurants => restaurants.name.toLowerCase().includes(query))
+            .forEach(restaurants => {
+                resultsContainer.innerHTML += `<div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="${restaurants.image}" alt="${restaurants.name}" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="text-xl font-bold mb-2">${restaurants.name}</h3>
+                    <p class="text-gray-600 mb-2">${restaurants.description}</p>
+                    <p class="text-gray-700"><strong>${restaurants.address}</strong></p>
+                </div>
+            </div>
+            `;
+            });
+        });
+
+    </script>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</body>
+</html>
